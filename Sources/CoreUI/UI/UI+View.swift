@@ -10,6 +10,7 @@ public extension UI {
                                        minWidth: CGFloat? = nil,
                                        minHeight: CGFloat? = nil,
                                        cornerRadius: CGFloat? = nil,
+                                       accessibility accessibilitySettings: [AccessibilitySetting] = [],
                                        _ subviews: [UIView?],
                                        apply: ((ViewType) -> Void)? = nil
     ) -> ViewType {
@@ -28,6 +29,8 @@ public extension UI {
             guard let subview = subview else { continue }
             view.addSubview(subview)
         }
+
+        view.accessibility(accessibilitySettings)
 
         var constraints: [NSLayoutConstraint] = []
 
@@ -61,6 +64,7 @@ public extension UI {
                                        minWidth: CGFloat? = nil,
                                        minHeight: CGFloat? = nil,
                                        cornerRadius: CGFloat? = nil,
+                                       accessibility accessibilitySettings: [AccessibilitySetting] = [],
                                        _ subviews: UIView?...,
                                        apply: ((ViewType) -> Void)? = nil
     ) -> ViewType {
@@ -70,6 +74,7 @@ public extension UI {
              minWidth: minWidth,
              minHeight: minHeight,
              cornerRadius: cornerRadius,
+             accessibility: accessibilitySettings,
              subviews,
              apply: apply)
     }
@@ -82,11 +87,20 @@ public extension UI {
                                        height: CGFloat? = nil,
                                        minHeight: CGFloat? = nil,
                                        cornerRadius: CGFloat? = nil,
+                                       accessibility accessibilitySettings: [AccessibilitySetting] = [],
                                        _ subview: UIView,
                                        _ anchors: LayoutAnchor...,
                                        apply: ((ViewType) -> Void)? = nil
     ) -> ViewType {
-        View(backgroundColor: backgroundColor, width: width, height: height, minHeight: minHeight, cornerRadius: cornerRadius, subview, anchors, apply: apply)
+        View(backgroundColor: backgroundColor,
+             width: width,
+             height: height,
+             minHeight: minHeight,
+             cornerRadius: cornerRadius,
+             accessibility: accessibilitySettings,
+             subview,
+             anchors,
+             apply: apply)
     }
 
     static func View<ViewType: UIView>(backgroundColor: UIColor? = nil,
@@ -94,11 +108,17 @@ public extension UI {
                                        height: CGFloat? = nil,
                                        minHeight: CGFloat? = nil,
                                        cornerRadius: CGFloat? = nil,
+                                       accessibility accessibilitySettings: [AccessibilitySetting] = [],
                                        _ subview: UIView,
                                        _ anchors: [LayoutAnchor],
                                        apply: ((ViewType) -> Void)? = nil
     ) -> ViewType {
-        let view = View(backgroundColor: backgroundColor, width: width, height: height, minHeight: minHeight, cornerRadius: cornerRadius) as ViewType
+        let view = View(backgroundColor: backgroundColor,
+                        width: width,
+                        height: height,
+                        minHeight: minHeight,
+                        cornerRadius: cornerRadius,
+                        accessibility: accessibilitySettings) as ViewType
         view.addSubview(subview, anchors)
         apply?(view)
         return view
@@ -115,19 +135,31 @@ public extension UI {
     static func Control(backgroundColor: UIColor? = nil,
                         width: CGFloat? = nil,
                         height: CGFloat? = nil,
+                        accessibility accessibilitySettings: [AccessibilitySetting] = [],
                         _ subviews: [UIView],
                         apply: ((UIControl) -> Void)? = nil
     ) -> UIControl {
-        View(backgroundColor: backgroundColor, width: width, height: height, subviews, apply: apply)
+        View(backgroundColor: backgroundColor,
+             width: width,
+             height: height,
+             accessibility: accessibilitySettings,
+             subviews,
+             apply: apply)
     }
 
     static func Control(backgroundColor: UIColor? = nil,
                         width: CGFloat? = nil,
                         height: CGFloat? = nil,
+                        accessibility accessibilitySettings: [AccessibilitySetting] = [],
                         _ subviews: UIView...,
                         apply: ((UIControl) -> Void)? = nil
     ) -> UIControl {
-        View(backgroundColor: backgroundColor, width: width, height: height, subviews, apply: apply)
+        View(backgroundColor: backgroundColor,
+             width: width,
+             height: height,
+             accessibility: accessibilitySettings,
+             subviews,
+             apply: apply)
     }
 
 }

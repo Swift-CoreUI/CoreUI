@@ -11,6 +11,7 @@ public extension UI {
                       lineBreakMode: NSLineBreakMode = .byTruncatingTail,
                       minWidth: CGFloat? = nil,
                       minHeight: CGFloat? = nil,
+                      accessibility accessibilitySettings: [AccessibilitySetting] = [],
                       apply: ((UILabel) -> Void)? = nil
     ) -> UILabel {
         let label = UILabel()
@@ -25,6 +26,8 @@ public extension UI {
         if let text = text {
             label.text = text
         }
+
+        label.accessibility(accessibilitySettings)
 
         var constraints: [NSLayoutConstraint] = []
 
@@ -50,6 +53,7 @@ public extension UI {
                       lineBreakMode: NSLineBreakMode = .byTruncatingTail,
                       minWidth: CGFloat? = nil,
                       minHeight: CGFloat? = nil,
+                      accessibility accessibilitySettings: [AccessibilitySetting] = [],
                       apply: ((UILabel) -> Void)? = nil
     ) -> UILabel {
         let label = UILabel()
@@ -60,6 +64,8 @@ public extension UI {
         label.adjustsFontForContentSizeCategory = true
 
         label.attributedText = attributedText
+        
+        label.accessibility(accessibilitySettings)
 
         var constraints: [NSLayoutConstraint] = []
 

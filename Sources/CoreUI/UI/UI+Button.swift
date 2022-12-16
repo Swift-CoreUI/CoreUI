@@ -15,6 +15,7 @@ public extension UI {
                        isSelected: Bool = false,
                        width: CGFloat? = nil,
                        height: CGFloat? = nil,
+                       accessibility additionalAccessibilitySettings: [AccessibilitySetting] = [],
                        apply: ((UIButton) -> Void)? = nil
     ) -> UIButton {
         let button = View(backgroundColor: backgroundColor, width: width, height: height) as UIButton
@@ -26,6 +27,7 @@ public extension UI {
         
         if let title = title {
             button.setTitle(title, for: .normal)
+            button.accessibility(.label(title))
         }
         
         if let image = image {
@@ -45,7 +47,10 @@ public extension UI {
         }
         
         button.isSelected = isSelected
-        
+
+        button.accessibility(.isElement(true), .shouldGroupChildren(true), .traits(.button))
+        button.accessibility(additionalAccessibilitySettings)
+
         apply?(button)
         
         return button
@@ -59,12 +64,13 @@ public extension UI {
                        isSelected: Bool = false,
                        width: CGFloat? = nil,
                        height: CGFloat? = nil,
+                       accessibility additionalAccessibilitySettings: [AccessibilitySetting] = [],
                        apply: ((UIButton) -> Void)? = nil
     ) -> UIButton {
         let button = View(backgroundColor: backgroundColor, width: width, height: height) as UIButton
         
         button.setAttributedTitle(attributedTitle, for: .normal)
-        
+
         if let image = image {
             button.setImage(image, for: .normal)
         }
@@ -79,16 +85,14 @@ public extension UI {
         
         button.isSelected = isSelected
         
-        apply?(button)
-        
-        button.isAccessibilityElement = true
-        button.shouldGroupAccessibilityChildren = true
-        button.accessibilityTraits = .button
-        button.accessibilityLabel = attributedTitle.string
-        
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.adjustsImageSizeForAccessibilityContentSizeCategory = true
-        
+
+        button.accessibility(.isElement(true), .shouldGroupChildren(true), .traits(.button), .label(attributedTitle.string))
+        button.accessibility(additionalAccessibilitySettings)
+
+        apply?(button)
+
         return button
     }
     

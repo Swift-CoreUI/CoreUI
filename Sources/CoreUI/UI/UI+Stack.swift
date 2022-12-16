@@ -3,13 +3,14 @@ import UIKit
 // swiftlint:disable identifier_name type_body_length
 // swiftlint:disable:next type_name
 public extension UI {
-    
+
     private static func Stack(axis: NSLayoutConstraint.Axis,
                               spacing: CGFloat,
                               distribution: UIStackView.Distribution,
                               alignment: UIStackView.Alignment,
                               backgroundColor: UIColor?,
                               isInteractionEnabled: Bool?,
+                              accessibility accessibilitySettings: [AccessibilitySetting],
                               _ subviews: [UIView?] = [],
                               apply: ((UIStackView) -> Void)? = nil
     ) -> UIStackView {
@@ -24,6 +25,8 @@ public extension UI {
         if let isInteractionEnabled = isInteractionEnabled {
             stack.isUserInteractionEnabled = isInteractionEnabled
         }
+
+        stack.accessibility(accessibilitySettings)
 
         if #available(iOS 14.0, *) {
             if let backgroundColor = backgroundColor {
@@ -42,6 +45,7 @@ public extension UI {
                        alignment: UIStackView.Alignment = .fill,
                        backgroundColor: UIColor? = nil,
                        isInteractionEnabled: Bool? = nil,
+                       accessibility: [AccessibilitySetting] = [],
                        _ subviews: [UIView?] = [],
                        apply: ((UIStackView) -> Void)? = nil
     ) -> UIStackView {
@@ -51,6 +55,7 @@ public extension UI {
               alignment: alignment,
               backgroundColor: backgroundColor,
               isInteractionEnabled: isInteractionEnabled,
+              accessibility: accessibility,
               subviews,
               apply: apply
         )
@@ -62,6 +67,7 @@ public extension UI {
                        alignment: UIStackView.Alignment = .fill,
                        backgroundColor: UIColor? = nil,
                        isInteractionEnabled: Bool? = nil,
+                       accessibility: [AccessibilitySetting] = [],
                        _ subviews: UIView?...,
                        apply: ((UIStackView) -> Void)? = nil
     ) -> UIStackView {
@@ -70,6 +76,7 @@ public extension UI {
                alignment: alignment,
                backgroundColor: backgroundColor,
                isInteractionEnabled: isInteractionEnabled,
+               accessibility: accessibility,
                subviews,
                apply: apply
         )
@@ -81,6 +88,7 @@ public extension UI {
                        alignment: UIStackView.Alignment = .fill,
                        backgroundColor: UIColor? = nil,
                        isInteractionEnabled: Bool? = nil,
+                       accessibility: [AccessibilitySetting] = [],
                        _ subviews: [UIView?] = [],
                        apply: ((UIStackView) -> Void)? = nil
     ) -> UIStackView {
@@ -90,6 +98,7 @@ public extension UI {
               alignment: alignment,
               backgroundColor: backgroundColor,
               isInteractionEnabled: isInteractionEnabled,
+              accessibility: accessibility,
               subviews,
               apply: apply
         )
@@ -101,6 +110,7 @@ public extension UI {
                        alignment: UIStackView.Alignment = .fill,
                        backgroundColor: UIColor? = nil,
                        isInteractionEnabled: Bool? = nil,
+                       accessibility: [AccessibilitySetting] = [],
                        _ subviews: UIView?...,
                        apply: ((UIStackView) -> Void)? = nil
     ) -> UIStackView {
@@ -109,6 +119,7 @@ public extension UI {
                alignment: alignment,
                backgroundColor: backgroundColor,
                isInteractionEnabled: isInteractionEnabled,
+               accessibility: accessibility,
                subviews,
                apply: apply
         )

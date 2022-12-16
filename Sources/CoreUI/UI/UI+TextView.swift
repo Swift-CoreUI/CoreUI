@@ -9,6 +9,7 @@ public extension UI {
                          font: UIFont? = nil,
                          textColor: UIColor? = nil,
                          linkTextAttributes: [NSAttributedString.Key: Any]? = nil,
+                         accessibility accessibilitySettings: [AccessibilitySetting] = [],
                          apply: ((UITextView) -> Void)? = nil
     ) -> UITextView {
         let textView = UITextView()
@@ -42,6 +43,8 @@ public extension UI {
         if let textColor = textColor {
             textView.textColor = textColor
         }
+
+        textView.accessibility(accessibilitySettings)
         
         apply?(textView)
         

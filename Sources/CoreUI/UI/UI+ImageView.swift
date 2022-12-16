@@ -13,6 +13,7 @@ public extension UI {
                           cornerRadius: CGFloat? = nil,
                           contentMode: UIView.ContentMode = .scaleAspectFill,
                           clipsToBounds: Bool = true,
+                          accessibility accessibilitySettings: [AccessibilitySetting] = [],
                           apply: ((UIImageView) -> Void)? = nil
     ) -> UIImageView {
         let imageView = UIImageView()
@@ -52,6 +53,8 @@ public extension UI {
         if let cornerRadius = cornerRadius {
             imageView.layer.cornerRadius = cornerRadius
         }
+
+        imageView.accessibility(accessibilitySettings)
 
         var constraints: [NSLayoutConstraint] = []
 
