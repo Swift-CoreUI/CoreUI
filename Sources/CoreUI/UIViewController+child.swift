@@ -30,10 +30,6 @@ public extension UIViewController {
             .leading(padding), .top(padding), .trailing(-padding), .bottom(-padding))
     }
 
-    func fill(with child: UIViewController, in v: UIView? = nil) {
-        add(child, into: v, padding: 0)
-    }
-
     func remove() {
         guard parent != nil else { return }
 
@@ -44,14 +40,18 @@ public extension UIViewController {
 
     @discardableResult
     func attach(to parent: UIViewController?, into v: UIView? = nil, _ anchors: LayoutAnchor...) -> Self {
+        return attach(to: parent, into: v, anchors)
+    }
+
+    @discardableResult
+    func attach(to parent: UIViewController?, into v: UIView? = nil, _ anchors: [LayoutAnchor]) -> Self {
         parent?.add(self, into: v, anchors)
         return self
     }
 
     @discardableResult
     func attach(to parent: UIViewController?, into v: UIView? = nil, padding: CGFloat) -> Self {
-        parent?.add(self, into: v, .leading(padding), .top(padding), .trailing(-padding), .bottom(-padding))
-        return self
+        return attach(to: parent, into: v, .leading(padding), .top(padding), .trailing(-padding), .bottom(-padding))
     }
 
     func detach() {
